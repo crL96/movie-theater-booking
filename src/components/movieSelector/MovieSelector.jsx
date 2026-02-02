@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import Movie from "../../classes/Movie";
 const API_URL = import.meta.env.VITE_API_URL;
 
-function MovieSelector() {
+function MovieSelector({ setSelectedMovie }) {
   const [movieList, setMovieList] = useState([
     new Movie(1, "The Lion King", 100, []),
   ]);
+  const [selectedId, setSelectedId] = useState("");
 
   useEffect(() => {
     async function fetchMovies() {
@@ -23,6 +24,11 @@ function MovieSelector() {
             );
           });
           setMovieList(movies);
+
+          if (movies.length > 0) {
+            setSelectedId(movies[0].id);
+            setSelectedMovie(movies[0]);
+          }
         }
       } catch (err) {
         console.log(err);
@@ -30,12 +36,24 @@ function MovieSelector() {
     }
 
     fetchMovies();
-  }, []);
+  }, [setSelectedMovie]);
+
+  function handleSelection(event) {
+    const id = event.target.value;
+    const movie = movieList.find((movie) => movie.id === id);
+    setSelectedId(id);
+    setSelectedMovie(movie);
+  }
 
   return (
     <div className={styles.movieSelector}>
       <label htmlFor="movie">Pick a movie:</label>
-      <select name="movie" id="movie">
+      <select
+        name="movie"
+        id="movie"
+        onChange={handleSelection}
+        value={selectedId}
+      >
         {movieList.map((movie) => (
           <option
             key={movie.id}
