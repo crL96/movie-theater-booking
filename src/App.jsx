@@ -1,5 +1,11 @@
+import MovieSelector from "./components/movieSelector/MovieSelector";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <MovieSelector />
+    </>
+  );
 }
 
 export default App;
