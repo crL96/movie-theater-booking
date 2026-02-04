@@ -16,12 +16,7 @@ function MovieSelector({ setSelectedMovie }) {
         if (res.status === 200) {
           const data = await res.json();
           const movies = data.map((item) => {
-            return new Movie(
-              item.id,
-              item.title,
-              item.price,
-              item.bookedStatus,
-            );
+            return new Movie(item.id, item.title, item.price, item.bookedSeats);
           });
           setMovieList(movies);
 
