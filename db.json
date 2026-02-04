@@ -36,5 +36,14 @@
       "price": 85,
       "bookedSeats": [4, 5, 15, 16, 22, 30, 31, 40, 42]
     }
+  ],
+  "booking": [
+    {
+      "id": "1",
+      "name": "John Smith",
+      "phone": "555-2342152",
+      "movieId": "6",
+      "seats": [40, 42]
+    }
   ]
 }
