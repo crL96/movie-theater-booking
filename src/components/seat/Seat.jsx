@@ -1,7 +1,11 @@
 import styles from "./seat.module.css";
 
-function Seat() {
-  return <div className={styles.seat}></div>;
+function Seat({ seatNr, isOccupied }) {
+  return (
+    <div
+      className={`${styles.seat} ${isOccupied ? styles.occupied : ""}`}
+    ></div>
+  );
 }
 
 export default Seat;

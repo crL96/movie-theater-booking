@@ -1,7 +1,7 @@
 import styles from "./movieTheater.module.css";
 import Seat from "../seat/Seat";
 
-function MovieTheater({ size }) {
+function MovieTheater({ size, movie }) {
   const seating = [];
 
   function generateSeating() {
@@ -10,7 +10,10 @@ function MovieTheater({ size }) {
       const rowSeats = [];
 
       for (let seat = 1; seat <= size[1]; seat++) {
-        rowSeats.push(<Seat key={currSeatNr} seatNr={currSeatNr} />);
+        const isOccupied = movie.bookedSeats.includes(currSeatNr);
+        rowSeats.push(
+          <Seat key={currSeatNr} seatNr={currSeatNr} isOccupied={isOccupied} />,
+        );
         currSeatNr++;
       }
 
