@@ -2,6 +2,7 @@ import { useState } from "react";
 import Movie from "./classes/Movie";
 import MovieSelector from "./components/movieSelector/MovieSelector";
 import MovieTheater from "./components/movieTheater/MovieTheater";
+import SelectionSummary from "./components/selectionSummary/SelectionSummary";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(
@@ -17,6 +18,10 @@ function App() {
         movie={selectedMovie}
         selectedSeats={selectedSeats}
         setSelectedSeats={setSelectedSeats}
+      />
+      <SelectionSummary
+        price={selectedMovie.price}
+        seats={selectedSeats.length}
       />
     </>
   );
