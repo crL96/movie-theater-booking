@@ -1,14 +1,17 @@
 import styles from "./movieTheater.module.css";
+import Seat from "../seat/Seat";
 
 function MovieTheater({ size }) {
   const seating = [];
 
   function generateSeating() {
+    let currSeatNr = 1;
     for (let row = 1; row <= size[0]; row++) {
       const rowSeats = [];
 
       for (let seat = 1; seat <= size[1]; seat++) {
-        rowSeats.push(<div className={styles.seat} key={[row, seat]}></div>);
+        rowSeats.push(<Seat key={currSeatNr} seatNr={currSeatNr} />);
+        currSeatNr++;
       }
 
       seating.push(
