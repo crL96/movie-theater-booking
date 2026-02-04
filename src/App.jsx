@@ -32,7 +32,13 @@ function App() {
           Reserve seats
         </button>
       ) : null}
-      {showBookForm ? <BookingForm setShowBookForm={setShowBookForm} /> : null}
+      {showBookForm ? (
+        <BookingForm
+          setShowBookForm={setShowBookForm}
+          seats={selectedSeats}
+          movie={selectedMovie}
+        />
+      ) : null}
     </>
   );
 }
