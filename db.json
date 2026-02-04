@@ -43,7 +43,8 @@
       "name": "John Smith",
       "phone": "555-2342152",
       "movieId": "6",
-      "seats": [40, 42]
+      "seats": [40, 42],
+      "cost": 170
     }
   ]
 }
