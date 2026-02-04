@@ -2,10 +2,12 @@ import styles from "./movieTheater.module.css";
 import Seat from "../seat/Seat";
 
 function MovieTheater({ size, movie, selectedSeats, setSelectedSeats }) {
-  const seating = [];
+  const seating = generateSeating();
 
   function generateSeating() {
+    const seating = [];
     let currSeatNr = 1;
+
     for (let row = 1; row <= size[0]; row++) {
       const rowSeats = [];
 
@@ -29,8 +31,8 @@ function MovieTheater({ size, movie, selectedSeats, setSelectedSeats }) {
         </div>,
       );
     }
+    return seating;
   }
-  generateSeating();
 
   return (
     <div className={styles.movieTheater}>
