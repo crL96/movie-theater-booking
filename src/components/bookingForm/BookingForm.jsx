@@ -1,7 +1,10 @@
+import { useState } from "react";
 import styles from "./bookingForm.module.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function BookingForm({ setShowBookForm, seats, movie }) {
+  const [message, setMessage] = useState(null);
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -14,8 +17,7 @@ function BookingForm({ setShowBookForm, seats, movie }) {
 
     const validationMsg = validateInput(data);
     if (validationMsg != "") {
-      //TODO Call function to display msg to user
-      console.log(validationMsg);
+      setMessage(validationMsg);
       return;
     }
 
@@ -24,7 +26,10 @@ function BookingForm({ setShowBookForm, seats, movie }) {
         method: "POST",
         body: JSON.stringify(data),
       });
-      if (res.status !== 201) return;
+      if (res.status !== 201) {
+        setMessage("Something went wrong, please try again later.");
+        return;
+      }
 
       //With a proper backend api connecting bookings to
       // a movies booked seats would be handled there
@@ -34,14 +39,16 @@ function BookingForm({ setShowBookForm, seats, movie }) {
           bookedSeats: movie.bookedSeats.concat(seats),
         }),
       });
+      setMessage("Success! Your seats are now reserved.");
+      e.target.reset();
     } catch {
-      console.log("Something went wrong in the communication with the API");
+      setMessage("Something went wrong, please try again later.");
     }
   }
 
   function validateInput(userInput) {
     if (userInput.seats.length < 1) {
-      return "Please atleast one seat";
+      return "Please select atleast one seat";
     }
     const namePattern = /^\p{L}{2,20} \p{L}{2,20}$/u;
     if (!namePattern.test(userInput.name)) {
@@ -78,6 +85,7 @@ function BookingForm({ setShowBookForm, seats, movie }) {
           maxLength={20}
         />
       </label>
+      {message ? <p className={styles.message}>{message}</p> : null}
       <button type="submit">Submit</button>
       <button type="button" onClick={() => setShowBookForm(false)}>
         Cancel
