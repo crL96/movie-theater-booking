@@ -8,6 +8,8 @@ function BookingForm({ setShowBookForm, seats, movie }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
+    if (message != null && message.startsWith("Success")) return;
+
     const data = Object.fromEntries(new FormData(e.target));
     data.phone = data.phone.trim();
     data.name = data.name.trim();
