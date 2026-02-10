@@ -1,3 +1,4 @@
+import styles from "./admin.module.css";
 import { useEffect, useState } from "react";
 import { fetchAllMovies } from "../../services/api";
 import MovieListItem from "../movieListItem/MovieListItem";
@@ -17,7 +18,8 @@ function Admin() {
   }, []);
 
   return (
-    <main>
+    <main className={styles.main}>
+      <h1>Admin</h1>
       {movies.map((movie) => (
         <MovieListItem movie={movie} key={movie.id} />
       ))}
