@@ -1,6 +1,14 @@
 import styles from "./movieListItem.module.css";
+import { deleteMovieById } from "../../services/api";
 
 function MovieListItem({ movie }) {
+  async function handleDelete() {
+    try {
+      await deleteMovieById(movie.id);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
   return (
     <div className={styles.movie}>
       <div className={styles.left}>
@@ -12,7 +20,9 @@ function MovieListItem({ movie }) {
       </div>
       <div className={styles.btnContainer}>
         <button>Edit</button>
-        <button className={styles.btnDelete}>Delete</button>
+        <button onClick={handleDelete} className={styles.btnDelete}>
+          Delete
+        </button>
       </div>
     </div>
   );

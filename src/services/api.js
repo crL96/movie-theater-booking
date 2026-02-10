@@ -5,7 +5,7 @@ async function fetchAllMovies() {
     const res = await fetch(API_URL + "/movie");
 
     if (res.status != 200) {
-        throw new Error("Failed to fetch movies");
+        throw new Error("Failed to fetch movies", { cause: res.status });
     }
 
     const data = await res.json();
@@ -15,4 +15,13 @@ async function fetchAllMovies() {
     return movies;
 }
 
-export { fetchAllMovies };
+async function deleteMovieById(id) {
+    const res = await fetch(API_URL + "/movie/" + id, {
+        method: "DELETE",
+    });
+    if (res.status != 200) {
+        throw new Error("Failed to delete movie", { cause: res.status });
+    }
+}
+
+export { fetchAllMovies, deleteMovieById };
