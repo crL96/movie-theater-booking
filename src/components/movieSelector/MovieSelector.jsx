@@ -1,7 +1,7 @@
 import styles from "./movieSelector.module.css";
 import { useEffect, useState } from "react";
 import Movie from "../../classes/Movie";
-const API_URL = import.meta.env.VITE_API_URL;
+import { fetchAllMovies } from "../../services/api";
 
 function MovieSelector({ setSelectedMovie }) {
   const [movieList, setMovieList] = useState([
@@ -10,27 +10,20 @@ function MovieSelector({ setSelectedMovie }) {
   const [selectedId, setSelectedId] = useState("");
 
   useEffect(() => {
-    async function fetchMovies() {
+    async function setMovies() {
       try {
-        const res = await fetch(API_URL + "/movie");
-        if (res.status === 200) {
-          const data = await res.json();
-          const movies = data.map((item) => {
-            return new Movie(item.id, item.title, item.price, item.bookedSeats);
-          });
-          setMovieList(movies);
-
-          if (movies.length > 0) {
-            setSelectedId(movies[0].id);
-            setSelectedMovie(movies[0]);
-          }
+        const movies = await fetchAllMovies();
+        setMovieList(movies);
+        if (movies.length > 0) {
+          setSelectedId(movies[0].id);
+          setSelectedMovie(movies[0]);
         }
       } catch (err) {
         console.log(err);
       }
     }
 
-    fetchMovies();
+    setMovies();
   }, [setSelectedMovie]);
 
   function handleSelection(event) {
