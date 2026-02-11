@@ -5,6 +5,7 @@ import MovieTheater from "./components/movieTheater/MovieTheater";
 import SelectionSummary from "./components/selectionSummary/SelectionSummary";
 import SeatExplaination from "./components/seatExplaination/SeatExplaination";
 import BookingForm from "./components/bookingForm/BookingForm";
+import { Link } from "react-router-dom";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(
@@ -15,6 +16,9 @@ function App() {
 
   return (
     <>
+      <Link to="/admin" className="navBtn">
+        Admin
+      </Link>
       <MovieSelector setSelectedMovie={setSelectedMovie} />
       <SeatExplaination />
       <MovieTheater
