@@ -1,7 +1,11 @@
 import { useState } from "react";
 import styles from "./movieForm.module.css";
 import Movie from "../../classes/Movie";
-import { addMovie, fetchAllMovies, updateMovie } from "../../services/api";
+import {
+  addMovie,
+  fetchAllMovies,
+  updateMovie,
+} from "../../services/movieService";
 
 function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
   const isUpdateMode = movieToUpdate != null;

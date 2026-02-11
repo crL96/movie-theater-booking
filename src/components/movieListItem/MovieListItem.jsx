@@ -1,5 +1,5 @@
 import styles from "./movieListItem.module.css";
-import { deleteMovieById, fetchAllMovies } from "../../services/api";
+import { deleteMovieById, fetchAllMovies } from "../../services/movieService";
 import MovieForm from "../movieForm/MovieForm";
 import { useState } from "react";
 

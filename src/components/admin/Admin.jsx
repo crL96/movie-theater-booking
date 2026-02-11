@@ -1,6 +1,6 @@
 import styles from "./admin.module.css";
 import { useEffect, useState } from "react";
-import { fetchAllMovies } from "../../services/api";
+import { fetchAllMovies } from "../../services/movieService";
 import MovieListItem from "../movieListItem/MovieListItem";
 import MovieForm from "../movieForm/MovieForm";
 import { Link } from "react-router-dom";

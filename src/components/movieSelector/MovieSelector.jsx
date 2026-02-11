@@ -1,7 +1,7 @@
 import styles from "./movieSelector.module.css";
 import { useEffect, useState } from "react";
 import Movie from "../../classes/Movie";
-import { fetchAllMovies } from "../../services/api";
+import { fetchAllMovies } from "../../services/movieService";
 
 function MovieSelector({ setSelectedMovie }) {
   const [movieList, setMovieList] = useState([
