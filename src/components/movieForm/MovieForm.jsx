@@ -1,17 +1,24 @@
 import { useState } from "react";
 import styles from "./movieForm.module.css";
 import Movie from "../../classes/Movie";
-import { addMovie, fetchAllMovies } from "../../services/api";
+import { addMovie, fetchAllMovies, updateMovie } from "../../services/api";
 
-function MovieForm({ setShowForm, setMovies }) {
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
+function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
+  const isUpdateMode = movieToUpdate != null;
+
+  const [title, setTitle] = useState(isUpdateMode ? movieToUpdate.title : "");
+  const [price, setPrice] = useState(isUpdateMode ? movieToUpdate.price : "");
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      const newMovie = new Movie(null, title, price, []);
-      await addMovie(newMovie);
+      if (isUpdateMode) {
+        await updateMovie(
+          new Movie(movieToUpdate.id, title, price, movieToUpdate.bookedSeats),
+        );
+      } else {
+        await addMovie(new Movie(null, title, price, []));
+      }
       setShowForm(false);
       setMovies(await fetchAllMovies());
     } catch (err) {
@@ -21,7 +28,9 @@ function MovieForm({ setShowForm, setMovies }) {
 
   return (
     <dialog open className={styles.dialog} id="dialog">
-      <h3>Add a new movie</h3>
+      <h3>
+        {isUpdateMode ? `Update "${movieToUpdate.title}"` : "Add a new movie"}
+      </h3>
       <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="title">Title</label>
         <input
