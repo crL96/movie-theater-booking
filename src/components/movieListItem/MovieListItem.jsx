@@ -1,10 +1,11 @@
 import styles from "./movieListItem.module.css";
-import { deleteMovieById } from "../../services/api";
+import { deleteMovieById, fetchAllMovies } from "../../services/api";
 
-function MovieListItem({ movie }) {
+function MovieListItem({ movie, setMovies }) {
   async function handleDelete() {
     try {
       await deleteMovieById(movie.id);
+      setMovies(await fetchAllMovies());
     } catch (err) {
       console.log(err.message);
     }

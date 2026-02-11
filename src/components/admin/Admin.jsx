@@ -21,7 +21,7 @@ function Admin() {
     <main className={styles.main}>
       <h1>Admin</h1>
       {movies.map((movie) => (
-        <MovieListItem movie={movie} key={movie.id} />
+        <MovieListItem movie={movie} key={movie.id} setMovies={setMovies} />
       ))}
     </main>
   );
