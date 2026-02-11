@@ -4,9 +4,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  --background-clr: #242333;
+  --text-color: #fff;
+}
+
 body {
-  background-color: #242333;
-  color: #fff;
+  background-color: var(--background-clr);
+  color: var(--text-color);
 }
 
 body,

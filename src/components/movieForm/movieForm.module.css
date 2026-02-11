@@ -1,0 +1,36 @@
+@import "../../index.css";
+
+.dialog {
+  position: fixed;
+  top: 8vh;
+
+  border-radius: 0.5rem;
+  min-width: 300px;
+
+  background-color: var(--background-clr);
+  color: var(--text-clr);
+}
+
+.dialog > h3 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form > input {
+  margin-bottom: 0.2rem;
+}
+
+.form > button {
+  margin-top: 0.8rem;
+}
+
+.closeBtn {
+  width: 100%;
+  background-color: red;
+  color: var(--text-clr);
+  margin-top: 0.2rem;
+}

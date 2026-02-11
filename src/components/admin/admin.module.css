@@ -5,3 +5,7 @@
 h1 {
   text-align: center;
 }
+
+.addBtn {
+  padding: 0.6rem 0.9rem;
+}

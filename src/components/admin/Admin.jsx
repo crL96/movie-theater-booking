@@ -2,9 +2,11 @@ import styles from "./admin.module.css";
 import { useEffect, useState } from "react";
 import { fetchAllMovies } from "../../services/api";
 import MovieListItem from "../movieListItem/MovieListItem";
+import MovieForm from "../movieForm/MovieForm";
 
 function Admin() {
   const [movies, setMovies] = useState([]);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     async function getAllMovies() {
@@ -20,9 +22,15 @@ function Admin() {
   return (
     <main className={styles.main}>
       <h1>Admin</h1>
+      <button onClick={() => setShowForm(true)} className={styles.addBtn}>
+        Add movie
+      </button>
       {movies.map((movie) => (
         <MovieListItem movie={movie} key={movie.id} setMovies={setMovies} />
       ))}
+      {showForm ? (
+        <MovieForm setShowForm={setShowForm} setMovies={setMovies} />
+      ) : null}
     </main>
   );
 }
