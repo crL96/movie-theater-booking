@@ -1,5 +1,7 @@
 import { useState } from "react";
 import styles from "./bookingForm.module.css";
+import { createBooking } from "../../services/bookingService";
+import Booking from "../../classes/Booking";
 const API_URL = import.meta.env.VITE_API_URL;
 
 function BookingForm({ setShowBookForm, seats, movie }) {
@@ -11,36 +13,21 @@ function BookingForm({ setShowBookForm, seats, movie }) {
     if (message != null && message.startsWith("Success")) return;
 
     const data = Object.fromEntries(new FormData(e.target));
-    data.phone = data.phone.trim();
-    data.name = data.name.trim();
-    data.movieId = movie.id;
-    data.seats = seats;
-    data.cost = seats.length * movie.price;
+    const booking = new Booking(
+      data.name.trim(),
+      data.phone.trim(),
+      movie,
+      seats,
+    );
 
-    const validationMsg = validateInput(data);
+    const validationMsg = validateInput(booking);
     if (validationMsg != "") {
       setMessage(validationMsg);
       return;
     }
 
     try {
-      const res = await fetch(API_URL + "/booking", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-      if (res.status !== 201) {
-        setMessage("Something went wrong, please try again later.");
-        return;
-      }
-
-      //With a proper backend api connecting bookings to
-      // a movies booked seats would be handled there
-      await fetch(API_URL + "/movie/" + movie.id, {
-        method: "PATCH",
-        body: JSON.stringify({
-          bookedSeats: movie.bookedSeats.concat(seats),
-        }),
-      });
+      await createBooking(booking);
       setMessage("Success! Your seats are now reserved.");
       e.target.reset();
     } catch {
