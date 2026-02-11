@@ -41,4 +41,17 @@ async function addMovie(movie) {
     }
 }
 
-export { fetchAllMovies, deleteMovieById, addMovie };
+async function updateMovie(movie) {
+    const res = await fetch(API_URL + "/movie/" + movie.id, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "Application/JSON",
+        },
+        body: JSON.stringify(movie),
+    });
+    if (res.status != 200) {
+        throw new Error("Failed to update movie", { cause: res.status });
+    }
+}
+
+export { fetchAllMovies, deleteMovieById, addMovie, updateMovie };
