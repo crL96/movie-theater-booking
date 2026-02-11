@@ -24,4 +24,21 @@ async function deleteMovieById(id) {
     }
 }
 
-export { fetchAllMovies, deleteMovieById };
+async function addMovie(movie) {
+    const res = await fetch(API_URL + "/movie", {
+        method: "POST",
+        headers: {
+            "Content-Type": "Application/JSON",
+        },
+        body: JSON.stringify({
+            title: movie.title,
+            price: movie.price,
+            bookedSeats: [],
+        }),
+    });
+    if (res.status != 201) {
+        throw new Error("Failed to create new movie", { cause: res.status });
+    }
+}
+
+export { fetchAllMovies, deleteMovieById, addMovie };
