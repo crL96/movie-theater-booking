@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 function Admin() {
   const [movies, setMovies] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [movieToUpdate, setMovieToUpdate] = useState(null);
 
   useEffect(() => {
     async function getAllMovies() {
@@ -20,6 +21,17 @@ function Admin() {
     getAllMovies();
   }, []);
 
+  function openForm(movie = null) {
+    if (showForm) return;
+    setMovieToUpdate(movie);
+    setShowForm(true);
+  }
+
+  function closeForm() {
+    setMovieToUpdate(null);
+    setShowForm(false);
+  }
+
   return (
     <>
       <Link to="/" className="navBtn">
@@ -31,10 +43,19 @@ function Admin() {
           Add movie
         </button>
         {movies.map((movie) => (
-          <MovieListItem movie={movie} key={movie.id} setMovies={setMovies} />
+          <MovieListItem
+            movie={movie}
+            key={movie.id}
+            setMovies={setMovies}
+            openForm={openForm}
+          />
         ))}
         {showForm ? (
-          <MovieForm setShowForm={setShowForm} setMovies={setMovies} />
+          <MovieForm
+            closeForm={closeForm}
+            setMovies={setMovies}
+            movieToUpdate={movieToUpdate}
+          />
         ) : null}
       </main>
     </>

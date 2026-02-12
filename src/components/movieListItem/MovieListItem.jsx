@@ -3,9 +3,7 @@ import { deleteMovieById, fetchAllMovies } from "../../services/movieService";
 import MovieForm from "../movieForm/MovieForm";
 import { useState } from "react";
 
-function MovieListItem({ movie, setMovies }) {
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
-
+function MovieListItem({ movie, setMovies, openForm }) {
   async function handleDelete() {
     const isConfirm = confirm("Are you sure you want to delete " + movie.title);
     if (!isConfirm) return;
@@ -27,19 +25,12 @@ function MovieListItem({ movie, setMovies }) {
           <p>Seats booked: {movie.bookedSeats.length}/48</p>
         </div>
         <div className={styles.btnContainer}>
-          <button onClick={() => setShowUpdateForm(true)}>Edit</button>
+          <button onClick={() => openForm(movie)}>Edit</button>
           <button onClick={handleDelete} className={styles.btnDelete}>
             Delete
           </button>
         </div>
       </div>
-      {showUpdateForm ? (
-        <MovieForm
-          setShowForm={setShowUpdateForm}
-          setMovies={setMovies}
-          movieToUpdate={movie}
-        />
-      ) : null}
     </>
   );
 }

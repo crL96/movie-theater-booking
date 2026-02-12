@@ -7,7 +7,7 @@ import {
   updateMovie,
 } from "../../services/movieService";
 
-function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
+function MovieForm({ closeForm, setMovies, movieToUpdate }) {
   const isUpdateMode = movieToUpdate != null;
   const [title, setTitle] = useState(isUpdateMode ? movieToUpdate.title : "");
   const [price, setPrice] = useState(isUpdateMode ? movieToUpdate.price : "");
@@ -23,7 +23,7 @@ function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
       } else {
         await addMovie(new Movie(null, title, price, []));
       }
-      setShowForm(false);
+      closeForm();
       setMovies(await fetchAllMovies());
     } catch (err) {
       setErrorMessage("Something went wrong, please try again later.");
@@ -63,7 +63,7 @@ function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
         />
         <button type="submit">Submit</button>
       </form>
-      <button className={styles.closeBtn} onClick={() => setShowForm(false)}>
+      <button className={styles.closeBtn} onClick={closeForm}>
         Close
       </button>
     </dialog>
