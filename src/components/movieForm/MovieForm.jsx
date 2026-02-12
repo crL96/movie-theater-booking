@@ -25,7 +25,7 @@ function MovieForm({ closeForm, setMovies, movieToUpdate }) {
       }
       closeForm();
       setMovies(await fetchAllMovies());
-    } catch (err) {
+    } catch {
       setErrorMessage("Something went wrong, please try again later.");
     }
   }

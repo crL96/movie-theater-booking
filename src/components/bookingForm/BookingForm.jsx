@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "./bookingForm.module.css";
 import { createBooking } from "../../services/bookingService";
 import Booking from "../../classes/Booking";
-import { getMovieById } from "../../services/movieService";
 
 function BookingForm({ setShowBookForm, seats, movie, refreshSeating }) {
   const [message, setMessage] = useState(null);
