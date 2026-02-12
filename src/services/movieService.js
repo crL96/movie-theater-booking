@@ -10,6 +10,11 @@ async function fetchAllMovies() {
     return movies;
 }
 
+async function getMovieById(id) {
+    const data = await apiRequest("/movie/" + id);
+    return new Movie(data.id, data.title, data.price, data.bookedSeats);
+}
+
 async function deleteMovieById(id) {
     await apiRequest("/movie/" + id, {
         method: "DELETE",
@@ -34,4 +39,4 @@ async function updateMovie(movie) {
     });
 }
 
-export { fetchAllMovies, deleteMovieById, addMovie, updateMovie };
+export { fetchAllMovies, deleteMovieById, addMovie, updateMovie, getMovieById };
