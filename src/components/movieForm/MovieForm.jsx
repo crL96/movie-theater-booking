@@ -43,6 +43,9 @@ function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
           id="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          minLength={1}
+          maxLength={50}
+          required
         />
         <label htmlFor="price">Price</label>
         <input
@@ -51,6 +54,9 @@ function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
           id="price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
+          min={50}
+          max={300}
+          required
         />
         <button type="submit">Submit</button>
       </form>
