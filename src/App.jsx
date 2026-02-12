@@ -6,6 +6,7 @@ import SelectionSummary from "./components/selectionSummary/SelectionSummary";
 import SeatExplaination from "./components/seatExplaination/SeatExplaination";
 import BookingForm from "./components/bookingForm/BookingForm";
 import { Link } from "react-router-dom";
+import { getMovieById } from "./services/movieService";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(
@@ -16,7 +17,11 @@ function App() {
 
   useEffect(() => {
     setSelectedSeats([]);
-  }, [selectedMovie.id]);
+  }, [selectedMovie.id, selectedMovie.bookedSeats.length]);
+
+  async function refreshSeating() {
+    setSelectedMovie(await getMovieById(selectedMovie.id));
+  }
 
   return (
     <>
@@ -45,6 +50,7 @@ function App() {
           setShowBookForm={setShowBookForm}
           seats={selectedSeats}
           movie={selectedMovie}
+          refreshSeating={refreshSeating}
         />
       ) : null}
     </>

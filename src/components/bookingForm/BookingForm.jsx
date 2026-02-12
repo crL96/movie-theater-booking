@@ -2,9 +2,9 @@ import { useState } from "react";
 import styles from "./bookingForm.module.css";
 import { createBooking } from "../../services/bookingService";
 import Booking from "../../classes/Booking";
-const API_URL = import.meta.env.VITE_API_URL;
+import { getMovieById } from "../../services/movieService";
 
-function BookingForm({ setShowBookForm, seats, movie }) {
+function BookingForm({ setShowBookForm, seats, movie, refreshSeating }) {
   const [message, setMessage] = useState(null);
 
   async function handleSubmit(e) {
@@ -30,6 +30,7 @@ function BookingForm({ setShowBookForm, seats, movie }) {
       await createBooking(booking);
       setMessage("Success! Your seats are now reserved.");
       e.target.reset();
+      refreshSeating();
     } catch {
       setMessage("Something went wrong, please try again later.");
     }
