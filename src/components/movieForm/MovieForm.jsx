@@ -9,9 +9,9 @@ import {
 
 function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
   const isUpdateMode = movieToUpdate != null;
-
   const [title, setTitle] = useState(isUpdateMode ? movieToUpdate.title : "");
   const [price, setPrice] = useState(isUpdateMode ? movieToUpdate.price : "");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -26,7 +26,7 @@ function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
       setShowForm(false);
       setMovies(await fetchAllMovies());
     } catch (err) {
-      console.log(err.message);
+      setErrorMessage("Something went wrong, please try again later.");
     }
   }
 
@@ -35,6 +35,9 @@ function MovieForm({ setShowForm, setMovies, movieToUpdate }) {
       <h3>
         {isUpdateMode ? `Update "${movieToUpdate.title}"` : "Add a new movie"}
       </h3>
+      {errorMessage ? (
+        <p className={styles.errorMessage}>{errorMessage}</p>
+      ) : null}
       <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="title">Title</label>
         <input

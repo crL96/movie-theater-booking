@@ -34,3 +34,11 @@
   color: var(--text-clr);
   margin-top: 0.2rem;
 }
+
+.errorMessage {
+  margin: 0 auto 1rem auto;
+  max-width: 25ch;
+  font-size: 0.9rem;
+  color: red;
+  text-align: center;
+}
