@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Movie from "../../classes/Movie";
 import { fetchAllMovies } from "../../services/movieService";
 
-function MovieSelector({ setSelectedMovie }) {
+function MovieSelector({ handleMovieChange }) {
   const [movieList, setMovieList] = useState([
     new Movie(1, "The Lion King", 100, []),
   ]);
@@ -16,7 +16,7 @@ function MovieSelector({ setSelectedMovie }) {
         setMovieList(movies);
         if (movies.length > 0) {
           setSelectedId(movies[0].id);
-          setSelectedMovie(movies[0]);
+          handleMovieChange(movies[0]);
         }
       } catch (err) {
         console.log(err);
@@ -24,13 +24,13 @@ function MovieSelector({ setSelectedMovie }) {
     }
 
     setMovies();
-  }, [setSelectedMovie]);
+  }, [handleMovieChange]);
 
   function handleSelection(event) {
     const id = event.target.value;
     const movie = movieList.find((movie) => movie.id === id);
     setSelectedId(id);
-    setSelectedMovie(movie);
+    handleMovieChange(movie);
   }
 
   return (

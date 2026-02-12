@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Movie from "./classes/Movie";
 import MovieSelector from "./components/movieSelector/MovieSelector";
 import MovieTheater from "./components/movieTheater/MovieTheater";
@@ -15,20 +15,22 @@ function App() {
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [showBookForm, setShowBookForm] = useState(false);
 
-  useEffect(() => {
-    setSelectedSeats([]);
-  }, [selectedMovie.id, selectedMovie.bookedSeats.length]);
-
   async function refreshSeating() {
     setSelectedMovie(await getMovieById(selectedMovie.id));
+    setSelectedSeats([]);
   }
+
+  const handleMovieChange = useCallback((movie) => {
+    setSelectedMovie(movie);
+    setSelectedSeats([]);
+  }, []);
 
   return (
     <>
       <Link to="/admin" className="navBtn">
         Admin
       </Link>
-      <MovieSelector setSelectedMovie={setSelectedMovie} />
+      <MovieSelector handleMovieChange={handleMovieChange} />
       <SeatExplaination />
       <MovieTheater
         size={[6, 8]}
