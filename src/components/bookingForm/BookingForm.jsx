@@ -10,8 +10,6 @@ function BookingForm({ setShowBookForm, seats, movie, refreshSeating }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (message != null && message.startsWith("Success")) return;
-
     const data = Object.fromEntries(new FormData(e.target));
     const booking = new Booking(
       data.name.trim(),
@@ -29,6 +27,7 @@ function BookingForm({ setShowBookForm, seats, movie, refreshSeating }) {
     try {
       await createBooking(booking);
       setMessage("Success! Your seats are now reserved.");
+      setTimeout(() => setMessage(null), 5000);
       e.target.reset();
       refreshSeating();
     } catch {
