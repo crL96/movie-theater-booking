@@ -7,6 +7,8 @@ function MovieListItem({ movie, setMovies }) {
   const [showUpdateForm, setShowUpdateForm] = useState(false);
 
   async function handleDelete() {
+    const isConfirm = confirm("Are you sure you want to delete " + movie.title);
+    if (!isConfirm) return;
     try {
       await deleteMovieById(movie.id);
       setMovies(await fetchAllMovies());
