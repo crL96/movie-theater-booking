@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Movie from "./classes/Movie";
 import MovieSelector from "./components/movieSelector/MovieSelector";
 import MovieTheater from "./components/movieTheater/MovieTheater";
@@ -13,6 +13,10 @@ function App() {
   );
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [showBookForm, setShowBookForm] = useState(false);
+
+  useEffect(() => {
+    setSelectedSeats([]);
+  }, [selectedMovie.id]);
 
   return (
     <>
