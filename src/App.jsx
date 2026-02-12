@@ -10,7 +10,7 @@ import { getMovieById } from "./services/movieService";
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(
-    new Movie(1, "The Lion King", 100, []),
+    new Movie(1, "The Lion King", 100, [10, 11, 25, 26, 37]),
   );
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [showBookForm, setShowBookForm] = useState(false);
